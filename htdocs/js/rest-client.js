@@ -18,8 +18,8 @@ class UA {
     select.append('<option value="" disabled selected>Select host...</option>');
     for (const hostIdx in this.config.hosts) {
       const host = this.config.hosts[hostIdx];
-      const n = `${host.student} - ${host.origin}`;
-      const option = $(`<option value="${hostIdx}">${n}</option>`);
+      const n = `${host.baseUrl}`;
+      const option = $(`<option value="${hostIdx}">${this.config.hosts[hostIdx].name || n}</option>`);
       select.append(option);
     }
     $('label[for="host"]').after(select);
@@ -163,7 +163,13 @@ class UA {
       $('select[name="host"]').after('<div id="host-selected"></div>');
     }
     const hostSelectedDiv = getHostSelectedDiv();
-    hostSelectedDiv.text(this.#host?.baseUrl);
+    hostSelectedDiv.empty();
+    let descriptionDiv = $('<div class="description"></div>');
+    descriptionDiv.text(this.#host?.description || '');
+    let baseUrlDiv = $('<div class="base-url"></div>');
+    baseUrlDiv.text(this.#host?.baseUrl || '');
+    hostSelectedDiv.append(descriptionDiv);
+    hostSelectedDiv.append(baseUrlDiv);
     this.uiState();
   }
 
