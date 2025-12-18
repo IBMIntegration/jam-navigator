@@ -5,22 +5,6 @@
  * 
  * This server provides a proxy service that allows students to access backend services
  * through a unified interface. It supports:
- * 
- * - Multi-tenant routing based on student and origin identifiers
- * - Static file serving for the web interface
- * - Configuration-based backend URL mapping
- * - Header forwarding and authentication passthrough
- * - HTTPS backend support with certificate validation disabled
- * 
- * Configuration:
- * - Reads from CONFIG environment variable or 'public/config.json'
- * - Expected format: { hosts: [{ student, origin, baseUrl }, ...] }
- * 
- * Usage:
- * - Start with: node index.js
- * - Access UI at: http://localhost:3000/
- * - Proxy format: http://localhost:3000/proxy/{student}/{origin}/{path}
- * - Shutdown: GET http://localhost:3000/exit
  */
 
 import fs from 'fs';

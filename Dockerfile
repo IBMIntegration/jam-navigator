@@ -10,7 +10,8 @@ COPY config /app/config
 
 # Create directories for runtime mounts
 RUN mkdir -p /var/cache/nginx /var/run && \
-    chown -R nginx:nginx /var/cache/nginx /var/run /usr/share/nginx/html
+    chown -R nginx:0 /var/cache/nginx /var/run /usr/share/nginx/html && \
+    chmod -R g+rwX /var/cache/nginx /var/run /usr/share/nginx/html
 
 # Expose port (will be overridden by deployment)
 EXPOSE 8088

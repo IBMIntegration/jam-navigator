@@ -40,6 +40,7 @@
   </defs>
   
   <!-- Apply the gradient to the pattern using a mask -->
-  <rect x="0" y="0" width="2000" height="2000" fill="url(#horizontalGradient)" mask="url(#gradientMask)"/>
+  <rect id="main" x="0" y="0" width="2000" height="2000"
+    fill="url(#horizontalGradient)" mask="url(#gradientMask)"/>
   
 </svg>
