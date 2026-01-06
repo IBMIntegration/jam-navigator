@@ -146,6 +146,23 @@ async function generateConfigObj() {
       text('Log in with Platform Navigator credentials', true)
     ]
   });
+
+  // Supporting Services
+  out.links.push({ group: 'Supporting services' });
+  const mailpit = 'pipeline-mailpit-demo-output';
+  host = getResource('ConfigMap', mailpit, 'mailpit-ui-url');
+  username = getResource('ConfigMap', mailpit, 'mailpit-admin-username');
+  password = getResource('ConfigMap', mailpit, 'mailpit-admin-password');
+
+  out.links.push({
+    title: 'Mailpit Web UI',
+    href: host,
+    moreInfo: [
+      monospace('Username', username),
+      monospace('Password', password, true)
+    ]
+  });
+
   return out;
 }
 
