@@ -199,7 +199,7 @@ class UA {
   getHeaders() {
     let headers = {};
     if (this.isBodyable) {
-      headers['Content-Type'] = [$('select[name="contentType"]').val()];
+      headers['Content-Type'] = [$('cds-elect[name="contentType"]').val()];
     }
     $('.header-field-wrapper input[type="text"]').each((i, e) => {
       const headerText = $(e).val();
@@ -239,7 +239,7 @@ class UA {
   }
 
   init_controls() {
-    $('button[name="send"]').on('click', () => { this.send(); });
+    $('cds-button[name="send"]').on('click', () => this.send());
   }
 
   init_loadConfig() {
@@ -273,9 +273,10 @@ class UA {
       }
     }
     const headersB64 = btoa(JSON.stringify(headers));
-    const path = $('input[name="path"]').first().val().replace(/^\//, '');
+    const path =
+      $('cds-text-input[name="path"]').first().val().replace(/^\//, '');
     const fetchOpts = {
-      method: $('select[name=method]').first().val(),
+      method: $('cds-select[name=method]').first().val(),
       headers: {
         'x-proxy-headers': headersB64
       },
@@ -283,12 +284,12 @@ class UA {
       rejectUnauthorized: false
     };
     if (this.isBodyable()) {
-      fetchOpts.body = $('textarea[name="body-content"]').first().val();
+      fetchOpts.body = $('cds-textarea[name="body-content"]').first().val();
     }
     console.log('fetchOpts:', fetchOpts);
     const anxietyKiller = $('<span class="anxiety-killer"></span>');
     anxietyKiller.html('&middot;&nbsp;&middot;&nbsp;&middot;');
-    $('button[name="send"]').after(anxietyKiller);
+    $('cds-button[name="send"]').after(anxietyKiller);
     $('.response-section').empty();
     fetch(
       '/proxy/' + this.host.student + '/' + this.host.origin + '/' + path,
@@ -357,7 +358,7 @@ class UA {
     if (!this.host) {
       enabled=false;
     }
-    $('button[name="send"]').prop('disabled', !enabled);
+    $('cds-utton[name="send"]').prop('disabled', !enabled);
   }
 
 }

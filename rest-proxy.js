@@ -48,7 +48,7 @@ const config = JSON.parse(fs.readFileSync(configFile).toString());
 function serveProxy(req, res) {
 	return new Promise((resolve, reject) => {
 	  const method = req.method;
-  	const urlMatch = req.url.match(new RegExp('/proxy/([^/]*)/([^/]*)(/.*)?$'));
+  	const urlMatch = req.url.match(new RegExp('/proxy/([^/]*)/(.*)?$'));
 	  const end = () => {
   		res.end();
   		resolve(`${res.statusCode} ${req.method} ${req.url}`);
@@ -58,17 +58,18 @@ function serveProxy(req, res) {
     	end();
     	return;
   	}
-	  const student = urlMatch[1];
-  	const origin = urlMatch[2];
-  	const pathname = urlMatch[3] || '/';
-  	const baseUrl = config.hosts.find(h => {
-    	return (h.student === student) && (h.origin === origin);
+	  const service = urlMatch[1];
+  	const pathname = urlMatch[2] || '/';
+  	const serviceConfig = config.hosts.find(h => {
+    	return (h.service === service);
 	  })?.baseUrl;
-  	if (!baseUrl) {
+  	if (!serviceConfig) {
+			// service was not in the list -- call it a bad request.
     	res.statusCode=400;
     	end();
   	  return;
 	  }
+		const baseUrl = `${serviceConfig.protocol}://${serviceConfig.baseUrl}`;
 
 	  const urlObj = new URL(baseUrl);
 
