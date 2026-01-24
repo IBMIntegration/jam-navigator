@@ -159,15 +159,10 @@ cds-tile#services-tile {
           font-size: 0.8rem;
           font-style: italic;
         }
-        .header-field-wrapper {
-          input {
-            width: calc(100% - 4rem);
-          }
-          button {
-            width: 3em;
-          }
-        }
       }
+    }
+    cds-button[name=send] {
+      margin: 1rem 0;
     }
   }
   #response-heading {
